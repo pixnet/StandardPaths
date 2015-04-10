@@ -46,7 +46,7 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
 
 #if TARGET_OS_IPHONE
 
-#define SP_IS_HD() (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone || SP_SCREEN_SCALE() > 1.0)
+#define SP_IS_HD() (UI_USER_INTERFACE_IDIOM() != SDPUIUserInterfaceIdiomPhone || SP_SCREEN_SCALE() > 1.0)
 #define SP_SCREEN_SCALE() ([UIScreen mainScreen].scale)
 #define SP_SCREEN_ASPECT() ([UIScreen mainScreen].bounds.size.height/[UIScreen mainScreen].bounds.size.width)
 #define SP_SCREEN_HEIGHT() MAX([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width)
@@ -313,7 +313,7 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
         
         switch (UI_USER_INTERFACE_IDIOM())
         {
-            case UIUserInterfaceIdiomPhone:
+            case SDPUIUserInterfaceIdiomPhone:
             {
                 //check for height suffix
                 for (NSString *path in [paths objectEnumerator])
@@ -346,7 +346,7 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
                 
                 break;
             }
-            case UIUserInterfaceIdiomPad:
+            case SDPUIUserInterfaceIdiomPad:
             {
                 //add HD suffix
                 for (NSString *path in [paths objectEnumerator])
@@ -379,7 +379,7 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
                 
                 break;
             }
-            case UIUserInterfaceIdiomDesktop:
+            case SDPUIUserInterfaceIdiomDesktop:
             {
                 //add HiDPI tiff extension
                 if ([@[@"", @"png", @"jpg", @"jpeg"] containsObject:[extension lowercaseString]])
@@ -505,11 +505,11 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
     return [[self SP_stringByDeletingPathExtension] hasSuffix:suffix];
 }
 
-- (NSString *)stringByAppendingSuffixForInterfaceIdiom:(UIUserInterfaceIdiom)idiom
+- (NSString *)stringByAppendingSuffixForInterfaceIdiom:(SDPUIUserInterfaceIdiom)idiom
 {
-    NSDictionary *suffixes = @{@(UIUserInterfaceIdiomPhone): SPPhoneSuffix,
-                               @(UIUserInterfaceIdiomPad): SPPadSuffix,
-                               @(UIUserInterfaceIdiomDesktop): SPDesktopSuffix};
+    NSDictionary *suffixes = @{@(SDPUIUserInterfaceIdiomPhone): SPPhoneSuffix,
+                               @(SDPUIUserInterfaceIdiomPad): SPPadSuffix,
+                               @(SDPUIUserInterfaceIdiomDesktop): SPDesktopSuffix};
     
     return [self stringByAppendingPathSuffix:suffixes[@(idiom)] ?: @""];
 }
@@ -539,14 +539,14 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
     return [[self interfaceIdiomSuffix] length] != 0;
 }
 
-- (UIUserInterfaceIdiom)interfaceIdiomFromSuffix
+- (SDPUIUserInterfaceIdiom)interfaceIdiomFromSuffix
 {
-    NSDictionary *suffixes = @{SPPhoneSuffix: @(UIUserInterfaceIdiomPhone),
-                               SPPadSuffix: @(UIUserInterfaceIdiomPad),
-                               SPDesktopSuffix: @(UIUserInterfaceIdiomDesktop)};
+    NSDictionary *suffixes = @{SPPhoneSuffix: @(SDPUIUserInterfaceIdiomPhone),
+                               SPPadSuffix: @(SDPUIUserInterfaceIdiomPad),
+                               SPDesktopSuffix: @(SDPUIUserInterfaceIdiomDesktop)};
     
     NSNumber *suffix = suffixes[[self interfaceIdiomSuffix]];
-    return suffix? (UIUserInterfaceIdiom)[suffix integerValue]: UI_USER_INTERFACE_IDIOM();
+    return suffix? (SDPUIUserInterfaceIdiom)[suffix integerValue]: UI_USER_INTERFACE_IDIOM();
 }
 
 - (NSString *)stringByAppendingSuffixForScale:(CGFloat)scale
@@ -637,7 +637,7 @@ extern NSString *const NSURLIsExcludedFromBackupKey __attribute__((weak_import))
     
 #if TARGET_OS_IPHONE
     
-    else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && [self hasHDSuffix])
+    else if (UI_USER_INTERFACE_IDIOM() == SDPUIUserInterfaceIdiomPhone && [self hasHDSuffix])
     {
         return 2.0;
     }

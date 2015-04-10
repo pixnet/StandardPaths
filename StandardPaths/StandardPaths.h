@@ -45,19 +45,19 @@
 
 #if TARGET_OS_IPHONE
 
-#define UIUserInterfaceIdiomDesktop (UIUserInterfaceIdiomPad + 1)
+#define SDPUIUserInterfaceIdiomDesktop (SDPUIUserInterfaceIdiomPad + 1)
 
 #else
 
 #ifndef UI_USER_INTERFACE_IDIOM
-#define UI_USER_INTERFACE_IDIOM() UIUserInterfaceIdiomDesktop
+#define UI_USER_INTERFACE_IDIOM() SDPUIUserInterfaceIdiomDesktop
 
-typedef NS_ENUM(NSInteger, UIUserInterfaceIdiom)
+typedef NS_ENUM(NSInteger, SDPUIUserInterfaceIdiom)
 {
-  UIUserInterfaceIdiomUnspecified = -1,
-  UIUserInterfaceIdiomPhone,
-  UIUserInterfaceIdiomPad,
-  UIUserInterfaceIdiomDesktop
+  SDPUIUserInterfaceIdiomUnspecified = -1,
+  SDPUIUserInterfaceIdiomPhone,
+  SDPUIUserInterfaceIdiomPad,
+  SDPUIUserInterfaceIdiomDesktop
 };
 
 #endif
@@ -107,13 +107,13 @@ static NSString *const SPHDSuffix = @"-hd";
 - (NSString *)stringByDeletingPathSuffix:(NSString *)suffix;
 - (BOOL)hasPathSuffix:(NSString *)suffix;
 
-- (NSString *)stringByAppendingSuffixForInterfaceIdiom:(UIUserInterfaceIdiom)idiom;
+- (NSString *)stringByAppendingSuffixForInterfaceIdiom:(SDPUIUserInterfaceIdiom)idiom;
 - (NSString *)stringByAppendingDeviceInterfaceIdiomSuffix;
 - (NSString *)stringByDeletingInterfaceIdiomSuffix;
 - (NSString *)interfaceIdiomSuffix;
 - (BOOL)hasInterfaceIdiomSuffix;
 
-- (UIUserInterfaceIdiom)interfaceIdiomFromSuffix;
+- (SDPUIUserInterfaceIdiom)interfaceIdiomFromSuffix;
 
 - (NSString *)stringByAppendingSuffixForScale:(CGFloat)scale;
 - (NSString *)stringByAppendingDeviceScaleSuffix;
